@@ -14,7 +14,12 @@ library(readxl)
 
 # sometimes the read_xlsx function can infer the proper data types on its own.
 # It needs a little help here, though.
+
+
 col_types = c('date', rep('numeric', 12))
+url = 'https://github.com/jmbejara/computation-demos/blob/master/data/assetclass_data_monthly.xlsx?raw=true'
+url = 'https://raw.githubusercontent.com/jmbejara/computation-demos/master/data/assetclass_data_monthly.xlsx'
+df_whole = read_xlsx('https://raw.githubusercontent.com/jmbejara/computation-demos/master/data/assetclass_data_monthly.xlsx', sheet='data', col_types = col_types)
 df_whole = read_xlsx('../data/assetclass_data_monthly.xlsx', sheet='data', col_types = col_types)
 
 # select out the date column
@@ -35,6 +40,8 @@ colMeans(df, na.rm = TRUE)
 # option, you'll have a lot of NAs in the result.
 df %>% cov
 
+?cov
+
 # You can compute the covariance pairwise and drop the NAs in between each pair:
 df %>% cov(use='pairwise.complete.obs')
 
@@ -48,6 +55,7 @@ df %>% drop_na %>% cov
 ## Matrix Decompositions
 
 Sigma = df %>% cov(use='pairwise.complete.obs')
+Sigma
 dim(Sigma)
 
 # Find eigenvectors and eigenvalues
@@ -75,4 +83,24 @@ solve(V)
 # These should be equal to each other
 Sigma
 V %*% Lambda %*% solve(V)
+V %*% Lambda %*% t(V)
+
+
+
+quadtratic = function(x){
+  x^2 -1
+}
+
+
+for (i in c(1,4,8)) {
+  print(i)
+}
+
+
+
+
+
+
+
+
 
